@@ -15,15 +15,27 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
     return instance ?? (instance = _(raw, Model, context ?? 'value', strict as true));
   }
 
+  function keys(): Array<string | number | symbol> {
+    const instance = target();
+    const keys = Object.keys(instance);
+    return keys; //Array.isArray(instance) ? keys.map(Number) : keys;
+  }
+
   return new Proxy({}, {
     get: function (_, key) {
       if (key === 'raw') {
         return raw;
       }
+      if (key === 'toJSON') {
+        return () => target()
+      }
       return target()[key];
     },
     set: function (_, key, value) {
       if (key === 'raw') {
+        return false;
+      }
+      if (key === 'toJSON') {
         return false;
       }
 
@@ -33,19 +45,25 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
       if (key === 'raw') {
         return false;
       }
+      if (key === 'toJSON') {
+        return false;
+      }
       return (delete target()[key]);
     },
     enumerate: function () {
-      return Object.keys(target());
+      return keys();
     },
     ownKeys: function () {
-      return Object.keys(target());
+      return keys();
     },
     has: function (_, key) {
       return key in target();
     },
     defineProperty: function (_, key, descr) {
       if (key === 'raw') {
+        return;
+      }
+      if (key === 'toJSON') {
         return;
       }
       Object.defineProperty(target(), key, descr);
@@ -55,6 +73,15 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
       if (key === 'raw') {
         return {
           value: raw,
+          writable: false,
+          enumerable: false,
+          configurable: false,
+        }
+      }
+
+      if (key === 'toJSON') {
+        return {
+          value: () => target(),
           writable: false,
           enumerable: false,
           configurable: false,

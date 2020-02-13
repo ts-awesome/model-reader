@@ -30,14 +30,19 @@ export function readable<T extends Function>(model: T, nullable?: true): Propert
 export function readable<T extends Function>(name: string, items: [T], nullable?: true): PropertyDecorator;
 export function readable<T extends Function>(items: [T], nullable?: true): PropertyDecorator;
 export function readable(...args: unknown[]): PropertyDecorator | void {
+  let src: string | undefined = undefined;
+  let nullable = false;
+  let Model: any = undefined;
+
   if (args.length > 1 && typeof args[1] === 'string') {
     const [target, key] = args as [object, string | symbol];
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return decorator(target, key);
   }
-  const src = typeof first(args) === 'string' ? args.shift() as string : undefined;
-  const nullable = typeof last(args) === 'boolean' ? args.pop() as boolean : false;
-  let [Model = undefined] = args as any[];
+
+  src = typeof first(args) === 'string' ? args.shift() as string : undefined;
+  nullable = typeof last(args) === 'boolean' ? args.pop() as boolean : false;
+  [Model = undefined] = args as any[];
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return decorator;
