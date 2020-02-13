@@ -6,13 +6,13 @@ export interface WithRaw {
   raw: any;
 }
 
-export function proxied<T extends Class>(raw: any[], Model: [T]): InstanceType<T>[] & WithRaw;
-export function proxied<T extends Class>(raw: any, Model: T): InstanceType<T> & WithRaw;
-export function proxied<T extends Class>(raw: any, Model: any): any {
+export function proxied<T extends Class>(raw: any[], Model: [T], context?: string, strict?: boolean): InstanceType<T>[] & WithRaw;
+export function proxied<T extends Class>(raw: any, Model: T, context?: string, strict?: boolean): InstanceType<T> & WithRaw;
+export function proxied<T extends Class>(raw: any, Model: any, context?: string, strict = true): any {
   let instance: any = null;
 
   function target() {
-    return instance ?? (instance = _(raw, Model, true));
+    return instance ?? (instance = _(raw, Model, context ?? 'value', true));
   }
 
   return new Proxy({}, {
