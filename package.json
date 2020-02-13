@@ -1,6 +1,6 @@
 {
   "name": "@viatsyshyn/ts-model-reader",
-  "version": "0.1.1",
+  "version": "0.0.0",
   "description": "Typescript model reader",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
