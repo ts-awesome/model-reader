@@ -1,0 +1,26 @@
+{
+  "name": "@viatsyshyn/ts-model-reader",
+  "version": "0.1.1",
+  "description": "Typescript model reader",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Volodymyr Iatsyshyn <viatsyshyn@gmail.com>",
+  "license": "ISC",
+  "peerDependencies": {},
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/reflect-metadata": "^0.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "eslint": "^6.8.0",
+    "source-map-support": "^0.5.16",
+    "typescript": "^3.7.5"
+  }
+}
