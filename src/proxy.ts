@@ -6,22 +6,24 @@ export interface WithRaw {
   raw: any;
 }
 
+class DeferredArray extends Array {}
+class DeferredObject extends Object {}
+
 export function proxied<T extends Class>(raw: any[], Model: [T], context?: string, strict?: boolean): InstanceType<T>[] & WithRaw;
 export function proxied<T extends Class>(raw: any, Model: T, context?: string, strict?: boolean): InstanceType<T> & WithRaw;
 export function proxied<T extends Class>(raw: any, Model: any, context?: string, strict = true): any {
   let instance: any = null;
+  const dummy: any = Array.isArray(Model) ? new DeferredArray : new DeferredObject;
 
   function target() {
-    return instance ?? (instance = _(raw, Model, context ?? 'value', strict as true));
+    return instance ?? (dummy.target = instance = _(raw, Model, context ?? 'value', strict as true));
   }
 
   function keys(): Array<string | number | symbol> {
-    const instance = target();
-    const keys = Object.keys(instance);
-    return keys; //Array.isArray(instance) ? keys.map(Number) : keys;
+    return Object.keys(target()); //Array.isArray(instance) ? keys.map(Number) : keys;
   }
 
-  return new Proxy({}, {
+  return new Proxy(dummy, {
     get: function (_, key) {
       if (key === 'raw') {
         return raw;
