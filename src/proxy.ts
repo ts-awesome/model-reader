@@ -12,7 +12,7 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
   let instance: any = null;
 
   function target() {
-    return instance ?? (instance = _(raw, Model, context ?? 'value', true));
+    return instance ?? (instance = _(raw, Model, context ?? 'value', strict as true));
   }
 
   return new Proxy({}, {
