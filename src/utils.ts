@@ -180,6 +180,16 @@ function read(raw: any, convertTo: any, Constructor: Function | undefined, meta:
     throw new ReaderError(`Could not deserialize ${meta}. convertTo expected to be a function, got ${typeof convertTo}`);
   }
 
+  if (convertTo === Function) {
+    if (typeof raw !== 'function') { 
+      if (strict) {
+        throw new ReaderError(`Could not deserialize ${meta}. Valid Function is expected.`)
+      }
+      return null;
+    }
+    return raw;
+  }
+
   // (raw, ((x: any) => T)) case, eg Number, String, RegExp
   try {
     return convertTo(raw);
