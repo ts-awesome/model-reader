@@ -31,10 +31,10 @@ export default function _<T extends Class>(raw: any, convertTo: null, constructo
 export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, meta: string, strict: true): InstanceType<T>;
 export default function _<T extends Class>(raw: any, convertTo: null, constructor: T): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, strict: true): InstanceType<T>;
-export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string): InstanceType<T> | null;
-export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string, strict: true): InstanceType<T>;
-export default function _<T extends Class>(raw: any[], convertTo: [T]): InstanceType<T> | null;
-export default function _<T extends Class>(raw: any[], convertTo: [T], strict: true): InstanceType<T>;
+export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string): InstanceType<T>[] | null;
+export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string, strict: true): InstanceType<T>[];
+export default function _<T extends Class>(raw: any[], convertTo: [T]): InstanceType<T>[] | null;
+export default function _<T extends Class>(raw: any[], convertTo: [T], strict: true): InstanceType<T>[];
 export default function _<T extends Class>(raw: any, convertTo: T, meta: string): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: T, meta: string, strict: true): InstanceType<T>;
 export default function _<T extends Class>(raw: any, convertTo: T): InstanceType<T> | null;
