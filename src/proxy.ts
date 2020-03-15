@@ -63,13 +63,12 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
     },
     defineProperty: function (_, key, descr) {
       if (key === 'raw') {
-        return;
+        return false;
       }
       if (key === 'toJSON') {
-        return;
+        return false;
       }
-      Object.defineProperty(target(), key, descr);
-      return target();
+      return Object.defineProperty(target(), key, descr);
     },
     getOwnPropertyDescriptor: function (_, key) {
       if (key === 'raw') {
@@ -77,7 +76,7 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
           value: raw,
           writable: false,
           enumerable: false,
-          configurable: false,
+          configurable: true,
         }
       }
 
@@ -86,7 +85,7 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
           value: () => target(),
           writable: false,
           enumerable: false,
-          configurable: false,
+          configurable: true,
         }
       }
 
