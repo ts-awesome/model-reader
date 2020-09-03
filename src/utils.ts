@@ -7,37 +7,37 @@ function last<T>(x: T[]): T | undefined {
   return x.length ? x[x.length - 1] : undefined;
 }
 
-export default function _<T>(raw: any[], convertTo: [typeof Date], meta: string): Date[] | null;
+export default function _<T>(raw: any[], convertTo: [typeof Date], meta: string, strict?: false): Date[] | null;
 export default function _<T>(raw: any[], convertTo: [typeof Date], meta: string, strict: true): Date[];
-export default function _<T>(raw: any[], convertTo: [typeof Date]): Date[] | null;
+export default function _<T>(raw: any[], convertTo: [typeof Date], strict?: false): Date[] | null;
 export default function _<T>(raw: any[], convertTo: [typeof Date], strict: true): Date[];
-export default function _<T>(raw: any, convertTo: typeof Date, meta: string): Date | null;
+export default function _<T>(raw: any, convertTo: typeof Date, meta: string, strict?: false): Date | null;
 export default function _<T>(raw: any, convertTo: typeof Date, meta: string, strict: true): Date;
-export default function _<T>(raw: any, convertTo: typeof Date): Date | null;
+export default function _<T>(raw: any, convertTo: typeof Date, strict?: false): Date | null;
 export default function _<T>(raw: any, convertTo: typeof Date, strict: true): Date;
-export default function _<T>(raw: any[], convertTo: [(raw: any) => T], meta: string): T[] | null;
+export default function _<T>(raw: any[], convertTo: [(raw: any) => T], meta: string, strict?: false): T[] | null;
 export default function _<T>(raw: any[], convertTo: [(raw: any) => T], meta: string, strict: true): T[];
-export default function _<T>(raw: any[], convertTo: [(raw: any) => T]): T[] | null;
+export default function _<T>(raw: any[], convertTo: [(raw: any) => T], strict?: false): T[] | null;
 export default function _<T>(raw: any[], convertTo: [(raw: any) => T], strict: true): T[];
-export default function _<T>(raw: any, convertTo: (raw: any) => T, meta: string): T | null;
+export default function _<T>(raw: any, convertTo: (raw: any) => T, meta: string, strict?: false): T | null;
 export default function _<T>(raw: any, convertTo: (raw: any) => T, meta: string, strict: true): T;
-export default function _<T>(raw: any, convertTo: (raw: any) => T): T | null;
+export default function _<T>(raw: any, convertTo: (raw: any) => T, strict?: false): T | null;
 export default function _<T>(raw: any, convertTo: (raw: any) => T, strict: true): T;
-export default function _<T extends Class>(raw: any[], convertTo: null, constructor: T, meta: string): InstanceType<T>[] | null;
+export default function _<T extends Class>(raw: any[], convertTo: null, constructor: T, meta: string, strict?: false): InstanceType<T>[] | null;
 export default function _<T extends Class>(raw: any[], convertTo: null, constructor: T, meta: string, strict: true): InstanceType<T>[];
-export default function _<T extends Class>(raw: any[], convertTo: null, constructor: T): InstanceType<T>[] | null;
+export default function _<T extends Class>(raw: any[], convertTo: null, constructor: T, strict?: false): InstanceType<T>[] | null;
 export default function _<T extends Class>(raw: any[], convertTo: null, constructor: T, strict: true): InstanceType<T>[];
-export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, meta: string): InstanceType<T> | null;
+export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, meta: string, strict?: false): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, meta: string, strict: true): InstanceType<T>;
-export default function _<T extends Class>(raw: any, convertTo: null, constructor: T): InstanceType<T> | null;
+export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, strict?: false): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: null, constructor: T, strict: true): InstanceType<T>;
-export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string): InstanceType<T>[] | null;
+export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string, strict?: false): InstanceType<T>[] | null;
 export default function _<T extends Class>(raw: any[], convertTo: [T], meta: string, strict: true): InstanceType<T>[];
-export default function _<T extends Class>(raw: any[], convertTo: [T]): InstanceType<T>[] | null;
+export default function _<T extends Class>(raw: any[], convertTo: [T], strict?: false): InstanceType<T>[] | null;
 export default function _<T extends Class>(raw: any[], convertTo: [T], strict: true): InstanceType<T>[];
-export default function _<T extends Class>(raw: any, convertTo: T, meta: string): InstanceType<T> | null;
+export default function _<T extends Class>(raw: any, convertTo: T, meta: string, strict?: false): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: T, meta: string, strict: true): InstanceType<T>;
-export default function _<T extends Class>(raw: any, convertTo: T): InstanceType<T> | null;
+export default function _<T extends Class>(raw: any, convertTo: T, strict?: false): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: T, strict: true): InstanceType<T>;
 export default function _(raw, convertTo: any, ...args: any[]): any {
   const strict: boolean = typeof last(args) === 'boolean' ? args.pop() : false;
@@ -75,7 +75,7 @@ function fromEntries (iterable) {
   }, {})
 }
 
-function read(raw: any, convertTo: any, Constructor: Function | undefined, meta: string, strict: boolean): any {
+function  read(raw: any, convertTo: any, Constructor: Function | undefined, meta: string, strict: boolean): any {
   if (raw == null) {
     if (strict) {
       throw new ReaderError(`Could not deserialize ${meta}. Value expected.`)
@@ -125,7 +125,7 @@ function read(raw: any, convertTo: any, Constructor: Function | undefined, meta:
   if (convertTo[ReaderSymbol]) {
     const reader = convertTo[ReaderSymbol];
     if (typeof reader !== 'function') {
-      throw new ReaderError(`Could not deserialize ${meta}. ${convertTo.name}[DeserializerSymbol] expected to be a function.`)
+      throw new ReaderError(`Could not deserialize ${meta}. ${convertTo.name}[ReaderSymbol] expected to be a function.`)
     }
     if (typeof raw !== 'object') {
       if (strict) {
@@ -145,7 +145,7 @@ function read(raw: any, convertTo: any, Constructor: Function | undefined, meta:
     }
 
     const values = Object.entries(props)
-      .map(([prop, converter]) => [prop, converter(raw, meta, strict)]);
+      .map(([prop, converter]) => [prop, converter(raw, `${meta}.${prop}`, strict)]);
     return read(fromEntries(values), null, convertTo, meta, strict);
   }
 
@@ -181,7 +181,7 @@ function read(raw: any, convertTo: any, Constructor: Function | undefined, meta:
   }
 
   if (convertTo === Function) {
-    if (typeof raw !== 'function') { 
+    if (typeof raw !== 'function') {
       if (strict) {
         throw new ReaderError(`Could not deserialize ${meta}. Valid Function is expected.`)
       }
