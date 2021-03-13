@@ -11,7 +11,7 @@ class DeferredObject extends Object {}
 
 export function proxied<T extends Class>(raw: any[], Model: [T], context?: string, strict?: boolean): InstanceType<T>[] & WithRaw;
 export function proxied<T extends Class>(raw: any, Model: T, context?: string, strict?: boolean): InstanceType<T> & WithRaw;
-export function proxied<T extends Class>(raw: any, Model: any, context?: string, strict = true): any {
+export function proxied<T extends Class>(raw: unknown, Model: T, context?: string, strict = true): any {
   let instance: any = null;
   const dummy: any = Array.isArray(Model) ? new DeferredArray : new DeferredObject;
 
@@ -19,7 +19,7 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
     return instance ?? (dummy.target = instance = _(raw, Model, context ?? 'value', strict as true));
   }
 
-  function keys(): Array<string | number | symbol> {
+  function keys(): string[] {
     return Object.keys(target()); //Array.isArray(instance) ? keys.map(Number) : keys;
   }
 
@@ -51,9 +51,6 @@ export function proxied<T extends Class>(raw: any, Model: any, context?: string,
         return false;
       }
       return (delete target()[key]);
-    },
-    enumerate: function () {
-      return keys();
     },
     ownKeys: function () {
       return keys();

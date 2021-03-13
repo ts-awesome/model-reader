@@ -1,6 +1,6 @@
 
 export class ReaderError extends Error {
-  constructor(message) {
+  constructor(message: string) {
     super(message);
 
     Object.setPrototypeOf(this, ReaderError.prototype);

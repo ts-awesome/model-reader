@@ -23,8 +23,8 @@ function first<T>(x: T[]): T | undefined {
 }
 
 export function readable(target: any, key: string): void;
-export function readable<T extends Function>(nullable?: true): PropertyDecorator;
-export function readable<T extends Function>(name: string, nullable?: true): PropertyDecorator;
+export function readable(nullable?: true): PropertyDecorator;
+export function readable(name: string, nullable?: true): PropertyDecorator;
 export function readable<T extends Function>(name: string, model: T, nullable?: true): PropertyDecorator;
 export function readable<T extends Function>(model: T, nullable?: true): PropertyDecorator;
 export function readable<T extends Function>(name: string, items: [T], nullable?: true): PropertyDecorator;
@@ -54,7 +54,7 @@ export function readable(...args: unknown[]): PropertyDecorator | void {
 
     if (Model === undefined) {
       const autoType = Reflect.getOwnMetadata("design:type", target, dest);
-      if (autoType === Object || autoType === Array) {
+      if (autoType === Object || autoType === Array || autoType === undefined) {
         throw new Error(`Please add explicit model for key "${dest}". Auto detect failed.`);
       }
 
@@ -62,6 +62,6 @@ export function readable(...args: unknown[]): PropertyDecorator | void {
     }
 
     ensureMetadata(target.constructor)[dest] = ((raw, meta): any =>
-      _(raw[src ?? dest], Model, meta + '[' + dest + ']', !nullable as any));
+      _(raw[src ?? dest], Model, meta, !nullable as any));
   }
 }

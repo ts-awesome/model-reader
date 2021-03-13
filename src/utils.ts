@@ -7,18 +7,18 @@ function last<T>(x: T[]): T | undefined {
   return x.length ? x[x.length - 1] : undefined;
 }
 
-export default function _<T>(raw: any[], convertTo: [typeof Date], meta: string): Date[] | null;
-export default function _<T>(raw: any[], convertTo: [typeof Date], meta: string, strict: false): Date[] | null;
-export default function _<T>(raw: any[], convertTo: [typeof Date], meta: string, strict: true): Date[];
-export default function _<T>(raw: any[], convertTo: [typeof Date]): Date[] | null;
-export default function _<T>(raw: any[], convertTo: [typeof Date], strict: false): Date[] | null;
-export default function _<T>(raw: any[], convertTo: [typeof Date], strict: true): Date[];
-export default function _<T>(raw: any, convertTo: typeof Date, meta: string): Date | null;
-export default function _<T>(raw: any, convertTo: typeof Date, meta: string, strict: false): Date | null;
-export default function _<T>(raw: any, convertTo: typeof Date, meta: string, strict: true): Date;
-export default function _<T>(raw: any, convertTo: typeof Date): Date | null;
-export default function _<T>(raw: any, convertTo: typeof Date, strict: false): Date | null;
-export default function _<T>(raw: any, convertTo: typeof Date, strict: true): Date;
+export default function _(raw: any[], convertTo: [typeof Date], meta: string): Date[] | null;
+export default function _(raw: any[], convertTo: [typeof Date], meta: string, strict: false): Date[] | null;
+export default function _(raw: any[], convertTo: [typeof Date], meta: string, strict: true): Date[];
+export default function _(raw: any[], convertTo: [typeof Date]): Date[] | null;
+export default function _(raw: any[], convertTo: [typeof Date], strict: false): Date[] | null;
+export default function _(raw: any[], convertTo: [typeof Date], strict: true): Date[];
+export default function _(raw: any, convertTo: typeof Date, meta: string): Date | null;
+export default function _(raw: any, convertTo: typeof Date, meta: string, strict: false): Date | null;
+export default function _(raw: any, convertTo: typeof Date, meta: string, strict: true): Date;
+export default function _(raw: any, convertTo: typeof Date): Date | null;
+export default function _(raw: any, convertTo: typeof Date, strict: false): Date | null;
+export default function _(raw: any, convertTo: typeof Date, strict: true): Date;
 export default function _<T>(raw: any[], convertTo: [(raw: any) => T], meta: string): T[] | null;
 export default function _<T>(raw: any[], convertTo: [(raw: any) => T], meta: string, strict: false): T[] | null;
 export default function _<T>(raw: any[], convertTo: [(raw: any) => T], meta: string, strict: true): T[];
@@ -55,7 +55,7 @@ export default function _<T extends Class>(raw: any, convertTo: T, meta: string,
 export default function _<T extends Class>(raw: any, convertTo: T): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: T, strict: false): InstanceType<T> | null;
 export default function _<T extends Class>(raw: any, convertTo: T, strict: true): InstanceType<T>;
-export default function _(raw, convertTo: any, ...args: any[]): any {
+export default function _(raw: unknown, convertTo: unknown, ...args: any[]): any {
   const strict: boolean = typeof last(args) === 'boolean' ? args.pop() : false;
   const meta: string = typeof last(args) === 'string' ? args.pop() : 'value';
   const Constructor = convertTo === null ? args.shift() : undefined;
