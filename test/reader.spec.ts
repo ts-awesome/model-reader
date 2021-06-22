@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import _, {readable} from "../dist";
+import _, {readable} from "../src";
 
 describe('reader', () => {
 

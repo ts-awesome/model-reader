@@ -143,13 +143,6 @@ function  read(raw: any, convertTo: any, Constructor: Function | undefined, meta
     if (typeof reader !== 'function') {
       throw new ReaderError(`Could not deserialize ${meta}. ${convertTo.name}[ReaderSymbol] expected to be a function.`)
     }
-    if (typeof raw !== 'object') {
-      if (strict) {
-        throw new ReaderError(`Could not deserialize ${meta}. Object expected, got ${typeof raw}.`)
-      }
-      return null;
-    }
-
     return reader(raw, meta, strict);
   }
 
