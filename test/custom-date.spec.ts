@@ -5,7 +5,6 @@ describe('reader', () => {
   class SimpleDate extends Date {
     public static [ReaderSymbol](raw: any): SimpleDate {
       const date = raw instanceof Date ? raw : new Date(raw);
-      console.log('here', raw, date);
       return new SimpleDate(date.getTime());
     }
 
