@@ -69,7 +69,7 @@ interface Deserializer<T=any> {
 
 function isIterable(obj) {
   // checks for null and undefined
-  if (typeof obj !== 'object') {
+  if (typeof obj !== 'object' || obj == null) {
     return false;
   }
   return typeof obj[Symbol.iterator] === 'function';
@@ -91,7 +91,7 @@ function fromEntries (iterable) {
   }, {})
 }
 
-function  read(raw: any, convertTo: any, Constructor: Function | undefined, meta: string, strict: boolean): any {
+function read(raw: any, convertTo: any, Constructor: Function | undefined, meta: string, strict: boolean): any {
   if (raw == null) {
     if (strict) {
       throw new ReaderError(`Could not deserialize ${meta}. Value expected.`)
